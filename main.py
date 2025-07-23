@@ -1,6 +1,16 @@
 import tkinter
 import tkinter.messagebox
 import functools
+import os
+import sys
+
+
+def resource_path(path: str) -> str:
+    if getattr(sys, "frozen", False) and hasattr(sys, "_MEIPASS"):
+        base = getattr(sys, "_MEIPASS")
+    else:
+        base = os.path.dirname(__file__)
+    return os.path.join(base, os.path.normpath(path))
 
 
 class Application:
@@ -14,9 +24,9 @@ class Application:
         self.root.title("Tic Tac Toe")
         self.root.geometry("300x340")
         self.root.minsize(300, 340)
-        self.circle = tkinter.PhotoImage(file="Images\\Circle.png")
-        self.cross = tkinter.PhotoImage(file="Images\\Cross.png")
-        self.blank = tkinter.PhotoImage(file="Images\\Empty.png")
+        self.circle = tkinter.PhotoImage(file=resource_path("Images/Circle.png"))
+        self.cross = tkinter.PhotoImage(file=resource_path("Images/Cross.png"))
+        self.blank = tkinter.PhotoImage(file=resource_path("Images/Empty.png"))
         self.num = tkinter.StringVar()
         self.content_frame = tkinter.Frame(self.root)
         self.content_frame.pack()
